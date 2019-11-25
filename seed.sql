@@ -20,3 +20,16 @@ CREATE TABLE location (
 INSERT INTO location VALUES ("Egypt");
 INSERT INTO location VALUES ("Stonehenge");
 INSERT INTO location VALUES ("Italy");
+
+DROP TABLE IF EXISTS episodes;
+
+CREATE TABLE episodes (
+  season INTEGER,
+  episode INTEGER);
+
+INSERT INTO episodes VALUES (1, 0);
+INSERT INTO episodes VALUES (1, 1);
+INSERT INTO episodes VALUES (1, 2);
+INSERT INTO episodes VALUES (1, 3);
+INSERT INTO episodes VALUES (1, 4);
+INSERT INTO episodes VALUES (1, 5);

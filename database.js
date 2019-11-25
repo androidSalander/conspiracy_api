@@ -23,6 +23,15 @@ const locationTableQuery =
 `CREATE TABLE IF NOT EXISTS location (
   name TEXT)`
 
+// Episodes
+// -- season INTEGER
+// -- episode INTEGER
+
+const episodesTableQuery =
+`CREATE TABLE IF NOT EXISTS episodes (
+  season INTEGER,
+  episode INTEGER)`
+
 //database creation
 db.run(conspiracyTableQuery, error => {
   if(error) console.log("conspiracy table DESTROYED by aliens", error)
@@ -34,4 +43,8 @@ db.run(locationTableQuery, error => {
   else console.log("location table created...by aliens!")
 })
 
+db.run(episodesTableQuery, error => {
+  if(error) console.log("episodes table DESTROYED by aliens", error)
+  else console.log("episodes table created...by aliens!")
+})
 module.exports = db

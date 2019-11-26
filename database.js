@@ -30,7 +30,9 @@ const locationTableQuery =
 const episodesTableQuery =
 `CREATE TABLE IF NOT EXISTS episodes (
   season INTEGER,
-  episode INTEGER)`
+  episode INTEGER,
+  title TEXT,
+  release_date TEXT)`
 
 //database creation
 db.run(conspiracyTableQuery, error => {

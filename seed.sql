@@ -25,11 +25,13 @@ DROP TABLE IF EXISTS episodes;
 
 CREATE TABLE episodes (
   season INTEGER,
-  episode INTEGER);
+  episode INTEGER,
+  title TEXT,
+  release_date TEXT);
 
-INSERT INTO episodes VALUES (1, 0);
-INSERT INTO episodes VALUES (1, 1);
-INSERT INTO episodes VALUES (1, 2);
-INSERT INTO episodes VALUES (1, 3);
-INSERT INTO episodes VALUES (1, 4);
-INSERT INTO episodes VALUES (1, 5);
+INSERT INTO episodes VALUES (1, 0, "Pilot", "Mar 8, 2009");
+INSERT INTO episodes VALUES (1, 1, "The Evidence", "Apr 20, 2010");
+INSERT INTO episodes VALUES (1, 2, "The Visitors", "Apr 27, 2010");
+INSERT INTO episodes VALUES (1, 3, "The Mission", "May 4, 2010");
+INSERT INTO episodes VALUES (1, 4, "Closer Encounters", "May 18, 2010");
+INSERT INTO episodes VALUES (1, 5, "The Return", "May 25, 2010");

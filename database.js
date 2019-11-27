@@ -11,10 +11,12 @@ let db = new sqlite.Database('./database.db')
 
 const conspiracyTableQuery =
 `CREATE TABLE IF NOT EXISTS conspiracy (
+  keyword TEXT,
   description TEXT,
   proof TEXT,
   mainstream_science TEXT,
-  year TEXT)`
+  year TEXT,
+  location_id INTEGER)`
 
 // Location
 // -- name TEXT
@@ -34,6 +36,15 @@ const episodesTableQuery =
   title TEXT,
   release_date TEXT)`
 
+// conspiracy_episodes
+// -- conspiracy_id INTEGER
+// -- episode_id INTEGER
+
+const conspiracyEpisodesTableQuery =
+`CREATE TABLE IF NOT EXISTS conspiracy_episodes (
+  conspiracy_id INTEGER,
+  episode_id INTEGER)`
+
 //database creation
 db.run(conspiracyTableQuery, error => {
   if(error) console.log("conspiracy table DESTROYED by aliens", error)
@@ -48,5 +59,10 @@ db.run(locationTableQuery, error => {
 db.run(episodesTableQuery, error => {
   if(error) console.log("episodes table DESTROYED by aliens", error)
   else console.log("episodes table created...by aliens!")
+})
+
+db.run(conspiracyEpisodesTableQuery, error => {
+  if(error) console.log("conspiracy_episodes table DESTROYED by aliens", error)
+  else console.log("conspiracy_episodes table created...by aliens!")
 })
 module.exports = db

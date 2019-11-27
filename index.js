@@ -44,7 +44,7 @@ app.get('/conspiracy/:id', (req, res) => {
 
 //post new conspiracy YES
 app.post('/conspiracy', (req, res) => {
-  const postConspiracy = `INSERT INTO conspiracy VALUES (?, ?, ?, ?)`
+  const postConspiracy = `INSERT INTO conspiracy VALUES (?, ?, ?, ?, ?, ?)`
   const newConspiracy = [req.body.description, req.body.proof, req.body.mainstream_science, req.body.year]
 
   db.all(postConspiracy, newConspiracy, (error, results) => {
@@ -262,6 +262,22 @@ app.delete('/episodes/:id', (req, res) => {
 /////////////////////////////////////////////
 //EVENTUALLY CONSPIRACY EPISODE JOIN TABLE//
 ////////////////////////////////////////////
+
+//get a conspiracy's episode and details using conspiracy_id
+app.get('/conspiracy/:id/episodes', (req, res) => {
+  const conspiracyId = req.params.id
+  const getConspiracyEpisode = `SELECT keyword, description, season, episode, title FROM conspiracy JOIN conspiracy_episodes ON conspiracy_id = conspiracy.oid JOIN episodes ON episode_id = episodes.oid WHERE conspiracy_id = ?`
+
+  db.all(getConspiracyEpisode, [conspiracyId], (error, results) => {
+    if(error) {
+      console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
+      res.sendStatus(500)
+    } else {
+      console.log("SUCCESS - PROOF OF ALIEN LIFE!")
+      res.status(200).json(results)
+    }
+  })
+})
 
 //server
 app.listen(port, () => {

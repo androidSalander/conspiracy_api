@@ -9,18 +9,21 @@ CREATE TABLE conspiracy (
   location_id INTEGER);
 
 INSERT INTO conspiracy VALUES ( "Saqqara Bird", "The bird was a miniature model of an ancient alien aircraft.", "It looks more like a plane than a bird.", "It is speculated that this could be a model of an aircraft, but even if that were true, there is no evidence of alien spacecraft in ancient Egypt.", "200 BCE", 1);
-INSERT INTO conspiracy VALUES ( "Vimana", "Vimana were flying machines provided by ancient aliens", "Ancient Hindu epics mention vimana as aircraft used by the gods. The Vaimanika Shastra details their blueprints", "The Vaimanika Shastra is a pseudoscientific text written in 1923. It was originally believed to be a thousand years old but that was quickly disproven. The author was not an expert in aerodynamics.", "700-300 BCE (first mentioned by name in the Ramayana)", 2);
-INSERT INTO conspiracy VALUES ( "Puma Punku", "Ancient aliens either provided tools and/or plans for the stone structures at Puma Punku", "The stones are cut so precisely that they could not have been carved with simple stone-age tools.", "Absence of evidence is not evidence of absence. Large hammers have been found in abundance nearby, the stones were hammered and then ground and polished with flat stones and sand.", "600 CE", 3);
+INSERT INTO conspiracy VALUES ( "Vimana", "Vimana were flying machines given to humans by ancient aliens", "Ancient Hindu epics mention vimana as aircraft used by the gods. The Vaimanika Shastra details their blueprints", "The Vaimanika Shastra is a pseudoscientific text written in 1923. It was originally believed to be a thousand years old but that was quickly disproven. The author was not an expert in aerodynamics.", "700-300 BCE (first mentioned by name in the Ramayana)", 2);
+INSERT INTO conspiracy VALUES ( "Pumaa Punkuu", "Ancient aliens either provided tools and/or plans for the stone structures at Puma Punku", "The stones are cut so precisely that they could not have been carved with simple stone-age tools.", "Absence of evidence is not evidence of absence. Large hammers have been found in abundance nearby, the stones were hammered and then ground and polished with flat stones and sand.", "600 CE", 3);
 INSERT INTO conspiracy VALUES ( "The Great Pyramid", "The Great Pyramid of Giza sent a microwave beam out of the top to a satellite.", "The inner chamber could have been filled with gasses to create a reaction, like a power plant.", "OKAY this one is just ridiculous.", "2580 BCE", 1);
 
-DROP TABLE IF EXISTS location;
+DROP TABLE IF EXISTS locations;
 
-CREATE TABLE location (
-  name TEXT);
+CREATE TABLE locations (
+  location TEXT);
 
-INSERT INTO location VALUES ("Egypt");
-INSERT INTO location VALUES ("India");
-INSERT INTO location VALUES ("Tiwanaku");
+INSERT INTO locations VALUES ("Egypt");
+INSERT INTO locations VALUES ("India");
+INSERT INTO locations VALUES ("Tiwanaku");
+INSERT INTO locations VALUES ("Sumeria");
+INSERT INTO locations VALUES ("Global");
+INSERT INTO locations VALUES ("Europe");
 
 DROP TABLE IF EXISTS episodes;
 

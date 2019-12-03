@@ -29,7 +29,7 @@ app.get('/conspiracy', (req, res) => {
 //get one conspiracy YES
 app.get('/conspiracy/:id', (req, res) => {
   const conspiracyId = req.params.id
-  const getOneConspiracy = `SELECT description FROM conspiracy WHERE conspiracy.oid = ${conspiracyId}`
+  const getOneConspiracy = `SELECT keyword, description, proof, mainstream_science, year FROM conspiracy WHERE conspiracy.oid = ${conspiracyId}`
 
   db.all(getOneConspiracy, (error, results) => {
     if(error) {
@@ -96,8 +96,8 @@ app.delete('/conspiracy/:id', (req, res) => {
 ///////////////////
 
 //get all locations YES
-app.get('/location', (req, res) => {
-  const getLocations = `SELECT * FROM location`
+app.get('/locations', (req, res) => {
+  const getLocations = `SELECT * FROM locations`
 
   db.all(getLocations, (error, results) => {
     if(error) {
@@ -111,9 +111,9 @@ app.get('/location', (req, res) => {
 })
 
 //get one location YES
-app.get('/location/:id', (req, res) => {
-  const locationId = req.params.id
-  const getOneLocation = `SELECT name FROM location WHERE location.oid = ${locationId}`
+app.get('/locations/:id', (req, res) => {
+  const locationsId = req.params.id
+  const getOneLocation = `SELECT location FROM locations WHERE locations.oid = ${locationsId}`
 
   db.all(getOneLocation, (error, results) => {
     if(error) {
@@ -127,8 +127,8 @@ app.get('/location/:id', (req, res) => {
 })
 
 //post new location YES
-app.post('/location', (req, res) => {
-  const postLocation = `INSERT INTO location VALUES (?)`
+app.post('/locations', (req, res) => {
+  const postLocation = `INSERT INTO locations VALUES (?)`
   const newLocation = req.body.name
 
   db.all(postLocation, newLocation, (error, results) => {
@@ -143,26 +143,26 @@ app.post('/location', (req, res) => {
 })
 
 //update one location
-app.put('/location/:id', (req, res) => {
-  const locationId = req.params.id
+app.put('/locations/:id', (req, res) => {
+  const locationsId = req.params.id
   const columnToUpdate = req.body.name
 
-  const updateLocation = `UPDATE location SET name = ? WHERE location.oid = ${locationId}`
+  const updateLocation = `UPDATE locations SET location = ? WHERE locations.oid = ${locationsId}`
   db.all(updateLocation, columnToUpdate, (error, results) => {
     if(error) {
       console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
       res.sendStatus(500)
     } else {
       console.log("SUCCESS - PROOF OF ALIEN LIFE!")
-      res.status(200).json(`Location ${locationId} successfully updated!`)
+      res.status(200).json(`Location ${locationsId} successfully updated!`)
     }
   })
 })
 
 //delete one location
-app.delete('/location/:id', (req, res) => {
-  const locationId = req.params.id
-  const deleteLocation = `DELETE FROM location WHERE location.oid = ${locationId}`
+app.delete('/locations/:id', (req, res) => {
+  const locationsId = req.params.id
+  const deleteLocation = `DELETE FROM locations WHERE locations.oid = ${locationsId}`
 
   db.all(deleteLocation, (error, result) => {
     if(error) {
@@ -170,7 +170,7 @@ app.delete('/location/:id', (req, res) => {
       res.sendStatus(500)
     } else {
       console.log("SUCCESS - PROOF OF ALIEN LIFE!")
-      res.status(200).json(`Conspiracy with ID ${locationId} successfully deleted`)
+      res.status(200).json(`Conspiracy with ID ${locationsId} successfully deleted`)
     }
   })
 })
@@ -259,6 +259,24 @@ app.delete('/episodes/:id', (req, res) => {
   })
 })
 
+///////////////////////////////////////
+//GET ONE TO MANY CONSPIRACY LOCATION//
+//////////////////////////////////////
+app.get('/conspiracy/:id/locations', (req, res) => {
+  const conspiracyId = req.params.id
+  const getConspiracyLocation = `SELECT keyword, description, location FROM conspiracy JOIN locations ON location_id = locations.oid WHERE conspiracy.oid = ?`
+
+  db.all(getConspiracyLocation, [conspiracyId], (error, results) => {
+    if(error) {
+      console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
+      res.sendStatus(500)
+    } else {
+      console.log("SUCCESS - PROOF OF ALIEN LIFE!")
+      res.status(200).json(results)
+    }
+  })
+})
+
 /////////////////////////////////////////////
 //EVENTUALLY CONSPIRACY EPISODE JOIN TABLE//
 ////////////////////////////////////////////
@@ -277,6 +295,24 @@ app.get('/conspiracy/:id/episodes', (req, res) => {
       res.status(200).json(results)
     }
   })
+})
+
+//associate a conspiracy with an episode
+app.post('/conspiracy/:id/episodes', (req, res) => {
+  const conspiracyId = req.params.id
+  const episodeId = req.body.episode_id
+  const associateConspiracyEpisode = `INSERT INTO conspiracy_episodes VALUES (?, ?)`
+
+db.all(associateConspiracyEpisode, [conspiracyId, episodeId], (error, results) => {
+  if(error) {
+    console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
+    res.sendStatus(500)
+  } else {
+    console.log("SUCCESS - PROOF OF ALIEN LIFE!")
+    res.status(200).json(`Conspiracy at ID ${conspiracyId} and episode at ID ${episodeId} successfully joined!`)
+  }
+})
+
 })
 
 //server

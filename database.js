@@ -21,9 +21,9 @@ const conspiracyTableQuery =
 // Location
 // -- name TEXT
 
-const locationTableQuery =
-`CREATE TABLE IF NOT EXISTS location (
-  name TEXT)`
+const locationsTableQuery =
+`CREATE TABLE IF NOT EXISTS locations (
+  location TEXT)`
 
 // Episodes
 // -- season INTEGER
@@ -51,8 +51,8 @@ db.run(conspiracyTableQuery, error => {
   else console.log("conspiracy table created...by aliens!")
 })
 
-db.run(locationTableQuery, error => {
-  if(error) console.log("location table DESTROYED by aliens", error)
+db.run(locationsTableQuery, error => {
+  if(error) console.log("locations table DESTROYED by aliens", error)
   else console.log("location table created...by aliens!")
 })
 

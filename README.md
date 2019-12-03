@@ -1,6 +1,6 @@
-ANCIENT ALIENS API
+# ANCIENT ALIENS API
 
-TABLE OF CONTENTS
+## TABLE OF CONTENTS
   BACKGROUND
   TECHNOLOGIES
   CONSPIRACY TABLE
@@ -8,10 +8,10 @@ TABLE OF CONTENTS
   EPISODES TABLE
   CONSPIRACY_EPISODES JOIN TABLE
 
-BACKGROUND
+## BACKGROUND
 Last year I got into the habit of watching Ancient Aliens and playing Switch games after work. I thought I could turn this into a learning experience if I sat down and researched the real science and history behind Ancient Astronaut Theory. This is a database of various conspiracies presented over 10 years of History Channel's greatest comedic achievement.
 
-TECHNOLOGIES
+## TECHNOLOGIES
   SQLite3
   DB Browser for SQLite
   node.js/nodemon.js
@@ -19,15 +19,15 @@ TECHNOLOGIES
   Postman
   iTerm2
 
-CONSPIRACY TABLE
+## CONSPIRACY TABLE
   keyword TEXT - A short name to easily identify conspiracies
   description TEXT - A description of what the conspiracy entails
   proof TEXT - A description of how Ancient Astronaut Theorists attempt to prove their conspiracies
   year TEXT - Approximately when the conspiracy happened, or when it began
   location_id INTEGER - Links to the locations table mentioned below
 
-  EXAMPLE REQUESTS
-    GET ALL CONSPIRACIES => GET host:7777/conspiracy =>
+### EXAMPLE REQUESTS
+    GET ALL CONSPIRACIES = GET host:7777/conspiracy =
       [
         {
           "keyword": "Saqqara Bird",
@@ -49,7 +49,7 @@ CONSPIRACY TABLE
           ET CETERA!!!
         }
       ]
-    GET ONE CONSPIRACY => GET host:7777/conspiracy/4 =>
+    GET ONE CONSPIRACY = GET host:7777/conspiracy/4 =
       [
         {
           "keyword": "The Great Pyramid",          
@@ -59,7 +59,7 @@ CONSPIRACY TABLE
           "year": "2580 BCE"
         }
       ]
-    POST NEW CONSPIRACY => POST host:7777/conspiracy =>
+    POST NEW CONSPIRACY = POST host:7777/conspiracy =
         {
           "keyword": "Black Death",
           "description": "The Pestilence which killed over 100 million people was a bio-weapon used by extraterrestrials as an attempt to eradicate the human race.",
@@ -68,19 +68,19 @@ CONSPIRACY TABLE
           "year": "1347-51 CE",
           "location_id": 6
         }
-    UPDATE CONSPIRACY => PUT host:7777/conspiracy/3 =>
+    UPDATE CONSPIRACY = PUT host:7777/conspiracy/3 =
       right now you need to put all the data in just to update so I need to make it so you can update one element at a time.
       {
         "keyword": "Puma Punku"
       }
 
-    DELETE CONSPIRACY => DELETE host:7777/conspiracy/4 => OK
+    DELETE CONSPIRACY = DELETE host:7777/conspiracy/4 = OK
 
-LOCATIONS TABLE
+## LOCATIONS TABLE
   location TEXT
 
-  EXAMPLE REQUESTS
-    GET ALL LOCATIONS => GET host:7777/locations =>
+### EXAMPLE REQUESTS
+    GET ALL LOCATIONS = GET host:7777/locations =
       [
         {
           "location": "Egypt"
@@ -95,30 +95,30 @@ LOCATIONS TABLE
           ET CETERA!
         }
       ]
-    GET ONE LOCATION => GET host:7777/locations/5 =>
+    GET ONE LOCATION = GET host:7777/locations/5 =
       [
         {
           "location": "Global"
         }
       ]
-    POST NEW LOCATION => host:7777/locations =>
+    POST NEW LOCATION = host:7777/locations =
       {
         "location": "England"
       }
-    UPDATE LOCATION => PUT host:7777/locations/3 =>
+    UPDATE LOCATION = PUT host:7777/locations/3 =
       {
         "location": "Tiahuanaco"
       }
-    DELETE LOCATION => DELETE host:7777/locations/6 => OK
+    DELETE LOCATION = DELETE host:7777/locations/6 = OK
 
-EPISODES TABLE
+## EPISODES TABLE
   season INTEGER,
   episode INTEGER,
   title TEXT,
   release_date TEXT
 
-  EXAMPLE REQUESTS
-    GET ALL EPISODES => GET host:7777/episodes
+### EXAMPLE REQUESTS
+    GET ALL EPISODES = GET host:7777/episodes
       [
         {
           "season": 1,
@@ -142,7 +142,7 @@ EPISODES TABLE
           ET CETERA!
         }
       ]
-    GET ONE EPISODE => GET host:7777/episodes/7 =>
+    GET ONE EPISODE = GET host:7777/episodes/7 =
       [
         {
           "season": 3,
@@ -151,25 +151,25 @@ EPISODES TABLE
           "release_date": "Sep 1, 2011"
         }
       ]
-    POST NEW EPISODE => POST host:7777/episodes =>
+    POST NEW EPISODE = POST host:7777/episodes =
       {
         "season": 2,
         "episode": 1,
         "title": "Mysterious Places",
         "release_date": "Oct 28, 2010"
       }
-    UPDATE EPISODE => PUT host:7777/episodes/1 =>
+    UPDATE EPISODE = PUT host:7777/episodes/1 =
       {
         "title": "Chariots, Gods, & Beyond - Pilot"
       }
-    DELETE EPISODE => DELETE host:7777/episodes/3 => OK
+    DELETE EPISODE = DELETE host:7777/episodes/3 = OK
 
-CONSPIRACY_EPISODES JOIN TABLE
+## CONSPIRACY_EPISODES JOIN TABLE
   conspiracy_id INTEGER,
   episode_id INTEGER
 
-  EXAMPLE REQUESTS
-    GET CONSPIRACY WITH EPISODES => GET host:7777/conspiracy/3/episodes =>
+### EXAMPLE REQUESTS
+    GET CONSPIRACY WITH EPISODES = GET host:7777/conspiracy/3/episodes =
       [
         {
           "keyword": "Pumaa Punkuu",

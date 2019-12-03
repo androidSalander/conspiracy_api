@@ -29,7 +29,10 @@ app.get('/conspiracy', (req, res) => {
 //get one conspiracy YES
 app.get('/conspiracy/:id', (req, res) => {
   const conspiracyId = req.params.id
-  const getOneConspiracy = `SELECT keyword, description, proof, mainstream_science, year FROM conspiracy WHERE conspiracy.oid = ${conspiracyId}`
+  const getOneConspiracy =
+  `SELECT keyword, description, proof, mainstream_science, year
+  FROM conspiracy
+  WHERE conspiracy.oid = ${conspiracyId}`
 
   db.all(getOneConspiracy, (error, results) => {
     if(error) {
@@ -63,7 +66,10 @@ app.put('/conspiracy/:id', (req, res) => {
   const conspiracyId = req.params.id
   const columnToUpdate = [req.body.description, req.body.proof, req.body.mainstream_science, req.body.year]
 
-  const updateConspiracy = `UPDATE conspiracy SET description = ?, proof = ?, mainstream_science = ?, year = ? WHERE conspiracy.oid = ${conspiracyId}`
+  const updateConspiracy =
+  `UPDATE conspiracy
+  SET description = ?, proof = ?, mainstream_science = ?, year = ?
+  WHERE conspiracy.oid = ${conspiracyId}`
   db.all(updateConspiracy, columnToUpdate, (error, results) => {
     if(error) {
       console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
@@ -78,7 +84,9 @@ app.put('/conspiracy/:id', (req, res) => {
 //delete one conspiracy YES
 app.delete('/conspiracy/:id', (req, res) => {
   const conspiracyId = req.params.id
-  const deleteConspiracy = `DELETE FROM conspiracy WHERE conspiracy.oid = ${conspiracyId}`
+  const deleteConspiracy =
+  `DELETE FROM conspiracy
+  WHERE conspiracy.oid = ${conspiracyId}`
 
   db.all(deleteConspiracy, (error, result) => {
     if(error) {
@@ -113,7 +121,10 @@ app.get('/locations', (req, res) => {
 //get one location YES
 app.get('/locations/:id', (req, res) => {
   const locationsId = req.params.id
-  const getOneLocation = `SELECT location FROM locations WHERE locations.oid = ${locationsId}`
+  const getOneLocation =
+  `SELECT location
+  FROM locations
+  WHERE locations.oid = ${locationsId}`
 
   db.all(getOneLocation, (error, results) => {
     if(error) {
@@ -147,7 +158,10 @@ app.put('/locations/:id', (req, res) => {
   const locationsId = req.params.id
   const columnToUpdate = req.body.name
 
-  const updateLocation = `UPDATE locations SET location = ? WHERE locations.oid = ${locationsId}`
+  const updateLocation =
+  `UPDATE locations
+  SET location = ?
+  WHERE locations.oid = ${locationsId}`
   db.all(updateLocation, columnToUpdate, (error, results) => {
     if(error) {
       console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
@@ -162,7 +176,9 @@ app.put('/locations/:id', (req, res) => {
 //delete one location
 app.delete('/locations/:id', (req, res) => {
   const locationsId = req.params.id
-  const deleteLocation = `DELETE FROM locations WHERE locations.oid = ${locationsId}`
+  const deleteLocation =
+  `DELETE FROM locations
+  WHERE locations.oid = ${locationsId}`
 
   db.all(deleteLocation, (error, result) => {
     if(error) {
@@ -197,7 +213,10 @@ app.get('/episodes', (req, res) => {
 //get one episode YES
 app.get('/episodes/:id', (req, res) => {
   const episodeId = req.params.id
-  const getOneEpisode = `SELECT title FROM episodes WHERE episodes.oid = ${episodeId}`
+  const getOneEpisode =
+  `SELECT season, episode, title, release_date
+  FROM episodes
+  WHERE episodes.oid = ${episodeId}`
 
   db.all(getOneEpisode, (error, results) => {
     if(error) {
@@ -228,11 +247,15 @@ app.post('/episodes', (req, res) => {
 
 //update one episode
 app.put('/episodes/:id', (req, res) => {
-  const episodeId = req.params.id
-  const columnToUpdate = [req.body.season, req.body.episode, req.body.title, req.body.release_date]
+  const episodeId = parseInt(req.params.id)
+  const queryHelper = Object.keys(req.body).map(ele => `${ele} = ?`)
+  const updateEpisode =
+  `UPDATE episodes
+  SET ${queryHelper.join(', ')}
+  WHERE episodes.oid = ?`
+  const queryValues = [...Object.values(req.body), episodeId]
 
-  const updateEpisode = `UPDATE episodes SET season = ?, episode = ?, title = ?, release_date =? WHERE episodes.oid = ${episodeId}`
-  db.all(updateEpisode, columnToUpdate, (error, results) => {
+  db.all(updateEpisode, queryValues, (error, results) => {
     if(error) {
       console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
       res.sendStatus(500)
@@ -264,7 +287,11 @@ app.delete('/episodes/:id', (req, res) => {
 //////////////////////////////////////
 app.get('/conspiracy/:id/locations', (req, res) => {
   const conspiracyId = req.params.id
-  const getConspiracyLocation = `SELECT keyword, description, location FROM conspiracy JOIN locations ON location_id = locations.oid WHERE conspiracy.oid = ?`
+  const getConspiracyLocation =
+  `SELECT keyword, description, location
+  FROM conspiracy
+  JOIN locations ON location_id = locations.oid
+  WHERE conspiracy.oid = ?`
 
   db.all(getConspiracyLocation, [conspiracyId], (error, results) => {
     if(error) {
@@ -284,7 +311,12 @@ app.get('/conspiracy/:id/locations', (req, res) => {
 //get a conspiracy's episode and details using conspiracy_id
 app.get('/conspiracy/:id/episodes', (req, res) => {
   const conspiracyId = req.params.id
-  const getConspiracyEpisode = `SELECT keyword, description, season, episode, title FROM conspiracy JOIN conspiracy_episodes ON conspiracy_id = conspiracy.oid JOIN episodes ON episode_id = episodes.oid WHERE conspiracy_id = ?`
+  const getConspiracyEpisode =
+  `SELECT keyword, description, season, episode, title
+  FROM conspiracy
+  JOIN conspiracy_episodes ON conspiracy_id = conspiracy.oid
+  JOIN episodes ON episode_id = episodes.oid
+  WHERE conspiracy_id = ?`
 
   db.all(getConspiracyEpisode, [conspiracyId], (error, results) => {
     if(error) {

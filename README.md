@@ -1,30 +1,36 @@
 # ANCIENT ALIENS API
 
 ## TABLE OF CONTENTS
-  BACKGROUND
-  TECHNOLOGIES
-  CONSPIRACY TABLE
-  LOCATION TABLE
-  EPISODES TABLE
-  CONSPIRACY_EPISODES JOIN TABLE
+  BACKGROUND   
+  TECHNOLOGIES    
+  CONSPIRACY TABLE   
+  LOCATION TABLE   
+  EPISODES TABLE   
+  CONSPIRACY_EPISODES JOIN TABLE   
 
 ## BACKGROUND
 Last year I got into the habit of watching Ancient Aliens and playing Switch games after work. I thought I could turn this into a learning experience if I sat down and researched the real science and history behind Ancient Astronaut Theory. This is a database of various conspiracies presented over 10 years of History Channel's greatest comedic achievement.
 
 ## TECHNOLOGIES
-  SQLite3
-  DB Browser for SQLite
-  node.js/nodemon.js
-  Atom text editor
-  Postman
-  iTerm2
+  SQLite3   
+  DB Browser for SQLite   
+  node.js/nodemon.js   
+  Atom text editor   
+  Postman   
+  iTerm2   
+  [Trello](https://trello.com/b/yDqEG0Df/conspiracy-api)    
+  LucidChart
+
+## ENTITIES CHART
+
+![entities](/images/entities.jpg)
 
 ## CONSPIRACY TABLE
-  keyword TEXT - A short name to easily identify conspiracies
-  description TEXT - A description of what the conspiracy entails
-  proof TEXT - A description of how Ancient Astronaut Theorists attempt to prove their conspiracies
-  year TEXT - Approximately when the conspiracy happened, or when it began
-  location_id INTEGER - Links to the locations table mentioned below
+  keyword TEXT - A short name to easily identify conspiracies   
+  description TEXT - A description of what the conspiracy entails   
+  proof TEXT - A description of how Ancient Astronaut Theorists attempt to prove their conspiracies   
+  year TEXT - Approximately when the conspiracy happened, or when it began   
+  location_id INTEGER - Links to the locations table mentioned below   
 
 ### EXAMPLE REQUESTS
     GET ALL CONSPIRACIES = GET host:7777/conspiracy =
@@ -165,8 +171,8 @@ Last year I got into the habit of watching Ancient Aliens and playing Switch gam
     DELETE EPISODE = DELETE host:7777/episodes/3 = OK
 
 ## CONSPIRACY_EPISODES JOIN TABLE
-  conspiracy_id INTEGER,
-  episode_id INTEGER
+  conspiracy_id INTEGER   
+  episode_id INTEGER   
 
 ### EXAMPLE REQUESTS
     GET CONSPIRACY WITH EPISODES = GET host:7777/conspiracy/3/episodes =

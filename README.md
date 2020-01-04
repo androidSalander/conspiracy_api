@@ -29,6 +29,7 @@ Last year I got into the habit of watching Ancient Aliens and playing Switch gam
   keyword TEXT - A short name to easily identify conspiracies   
   description TEXT - A description of what the conspiracy entails   
   proof TEXT - A description of how Ancient Astronaut Theorists attempt to prove their conspiracies   
+  mainstream_science TEXT - The truth according to non-believers   
   year TEXT - Approximately when the conspiracy happened, or when it began   
   location_id INTEGER - Links to the locations table mentioned below   
 

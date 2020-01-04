@@ -5,7 +5,16 @@ let app = express()
 
 app.use(express.json())
 
-const port = 7777
+//setup for fetching with react front page
+let setCORS = (request, response, next) => {
+  response.setHeader('Access-Control-Allow-Origin', '*')
+  response.setHeader('Access-Control-Allow-Headers', '*')
+  response.setHeader('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE")
+  next()
+}
+app.use(setCORS)
+
+const backPort = 7777
 
 /////////////////////
 //CONSPIRACY ROUTES//
@@ -13,7 +22,7 @@ const port = 7777
 
 //get all conspiracies YES
 app.get('/conspiracy', (req, res) => {
-  const getConspiracies = 'SELECT * FROM conspiracy'
+  const getConspiracies = 'SELECT oid, * FROM conspiracy'
 
   db.all(getConspiracies, (error, results) => {
     if(error) {
@@ -30,7 +39,7 @@ app.get('/conspiracy', (req, res) => {
 app.get('/conspiracy/:id', (req, res) => {
   const conspiracyId = req.params.id
   const getOneConspiracy =
-  `SELECT keyword, description, proof, mainstream_science, year
+  `SELECT oid, keyword, description, proof, mainstream_science, year
   FROM conspiracy
   WHERE conspiracy.oid = ${conspiracyId}`
 
@@ -48,7 +57,13 @@ app.get('/conspiracy/:id', (req, res) => {
 //post new conspiracy YES
 app.post('/conspiracy', (req, res) => {
   const postConspiracy = `INSERT INTO conspiracy VALUES (?, ?, ?, ?, ?, ?)`
-  const newConspiracy = [req.body.description, req.body.proof, req.body.mainstream_science, req.body.year]
+  const newConspiracy = [
+    req.body.keyword,
+    req.body.description,
+    req.body.proof,
+    req.body.mainstream_science,
+    req.body.year
+  ]
 
   db.all(postConspiracy, newConspiracy, (error, results) => {
     if(error) {
@@ -63,13 +78,21 @@ app.post('/conspiracy', (req, res) => {
 
 //update one conspiracy
 app.put('/conspiracy/:id', (req, res) => {
+  console.log(req.body)
   const conspiracyId = req.params.id
-  const columnToUpdate = [req.body.description, req.body.proof, req.body.mainstream_science, req.body.year]
+  const columnToUpdate = [
+    req.body.keyword,
+    req.body.description,
+    req.body.proof,
+    req.body.mainstream_science,
+    req.body.year
+  ]
 
   const updateConspiracy =
   `UPDATE conspiracy
-  SET description = ?, proof = ?, mainstream_science = ?, year = ?
+  SET keyword = ?, description = ?, proof = ?, mainstream_science = ?, year = ?
   WHERE conspiracy.oid = ${conspiracyId}`
+
   db.all(updateConspiracy, columnToUpdate, (error, results) => {
     if(error) {
       console.log("FAILURE - HUMANS ARE ALONE IN THE GALAXY", error)
@@ -232,7 +255,12 @@ app.get('/episodes/:id', (req, res) => {
 //post new episode YES
 app.post('/episodes', (req, res) => {
   const postEpisode = `INSERT INTO episodes VALUES (?, ?, ?, ?)`
-  const newEpisode = [req.body.season, req.body.episode, req.body.title, req.body.release_date]
+  const newEpisode = [
+    req.body.season,
+    req.body.episode,
+    req.body.title,
+    req.body.release_date
+  ]
 
   db.all(postEpisode, newEpisode, (error, results) => {
     if(error) {
@@ -348,6 +376,6 @@ db.all(associateConspiracyEpisode, [conspiracyId, episodeId], (error, results) =
 })
 
 //server
-app.listen(port, () => {
-  console.log(`aliens watching on port ${port}`)
+app.listen(backPort, () => {
+  console.log(`aliens watching on port ${backPort}`)
 })
